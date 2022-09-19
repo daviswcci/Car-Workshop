@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Fall2022_Car_Workshop
 {
     // Abstraction - making a generic class that can be inherited by children classes by lending functionality
-    internal abstract class Vehicle
+    public abstract class Vehicle
     {
         // When we use abstract on a property, we are declaring the getters and setters abstract, NOT the property itself
         public int Speed { get; set; }

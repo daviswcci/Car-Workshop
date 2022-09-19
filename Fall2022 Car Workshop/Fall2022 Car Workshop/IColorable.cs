@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fall2022_Car_Workshop
 {
-    internal interface IColorable
+    public interface IColorable
     {
         public string Color { get; set; }
 

@@ -25,7 +25,26 @@ namespace Fall2022_Car_Workshop
             IsRunning = false;
         }
 
+        public Car(string make, string model, int speed, int topspeed, string color, decimal cost, bool isRunning)
+        {
+            Make=make;
+            Model=model;
+            Speed=speed;
+            TopSpeed=topspeed;
+            Color=color;
+            Cost=cost;
+            IsRunning=isRunning;
+        }
+
         // Methods
+
+        public static Car CreateCar()
+        {
+            // prompt the user using the console to create a new car
+            // return the car the user created
+            return new Car();
+        }
+
         public void ChangeMake(string make)
         {
             Make = make;

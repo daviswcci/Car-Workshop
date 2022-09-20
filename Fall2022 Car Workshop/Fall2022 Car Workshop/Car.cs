@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Fall2022_Car_Workshop
 {
-    internal class Car : Vehicle, IAudible, IEquatable<Car>, IColorable
+    public class Car : Vehicle, IAudible, IEquatable<Car>, IColorable
     {
         // properties
         public string Make { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
+        public bool IsRunning { get; set; }
 
         // Constructor
         public Car()
@@ -21,6 +22,7 @@ namespace Fall2022_Car_Workshop
             Speed = 0;
             TopSpeed = 150;
             Cost = -1500;
+            IsRunning = false;
         }
 
         // Methods
@@ -59,6 +61,11 @@ namespace Fall2022_Car_Workshop
         public bool CompareColor(IColorable other)
         {
             return Color == other.Color;
+        }
+
+        public void Accelerate()
+        {
+            Speed += 5;
         }
     }
 }

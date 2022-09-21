@@ -25,15 +25,15 @@ namespace Fall2022_Car_Workshop
             IsRunning = false;
         }
 
-        public Car(string make, string model, int speed, int topspeed, string color, decimal cost, bool isRunning)
+        public Car(string make, string model, int topspeed, string color, int cost)
         {
-            Make=make;
-            Model=model;
-            Speed=speed;
-            TopSpeed=topspeed;
-            Color=color;
-            Cost=cost;
-            IsRunning=isRunning;
+            Make = make;
+            Model = model;
+            Speed = 0;
+            TopSpeed = topspeed;
+            Color = color;
+            Cost = cost;
+            IsRunning = false;
         }
 
         // Methods
@@ -42,7 +42,28 @@ namespace Fall2022_Car_Workshop
         {
             // prompt the user using the console to create a new car
             // return the car the user created
-            return new Car();
+            Console.WriteLine("What is the name of your car's make?");
+            var make = Console.ReadLine();
+            Console.WriteLine("What is the name of your car's model?");
+            var model = Console.ReadLine();
+            Console.WriteLine("What is the color of your car?");
+            var color = Console.ReadLine();
+            Console.WriteLine("How fast can your car go?");
+            var topSpeed = int.Parse(Console.ReadLine());
+            Random random = new Random();
+            var cost = random.Next(5000, 15000);
+            return new Car(make, model, topSpeed, color, cost);
+        }
+
+        public static Car RandomCar()
+        {
+            Random rng = new Random();
+            return new Car("RandomMake", "RandomModel", rng.Next(80,150), "RandomColor", rng.Next(8000,25000));
+        }
+
+        public override void Display()
+        {
+            Console.WriteLine($"Type: Car - Make: {Make} - Model: {Model} - Color: {Color} - Cost: {Cost}");
         }
 
         public void ChangeMake(string make)
@@ -50,7 +71,7 @@ namespace Fall2022_Car_Workshop
             Make = make;
         }
 
-        public override void ChangeCost(decimal cost)
+        public override void ChangeCost(int cost)
         {
             Cost = cost;
         }

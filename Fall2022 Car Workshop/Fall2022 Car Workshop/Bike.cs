@@ -17,13 +17,49 @@ namespace Fall2022_Car_Workshop
         public Bike()
         {
             Brand = "Schwinn";
+            Color = "Red";
             Speed = 0;
             TopSpeed = 50;
             Cost = 300;
         }
 
+        public Bike(string brand, string color, int topSpeed, int cost)
+        {
+            Brand = brand;
+            Color = color;
+            Speed = 0;
+            TopSpeed = topSpeed;
+            Cost = cost;
+        }
+
         // Methods
-        public override void ChangeCost(decimal cost)
+
+        public static Bike CreateBike()
+        {
+            Console.WriteLine("What is the name of your bike's brand?");
+            var brand = Console.ReadLine();
+            Console.WriteLine("What is the color of your bike?");
+            var color = Console.ReadLine();
+            Console.WriteLine("How fast can your bike go?");
+            var topSpeed = int.Parse(Console.ReadLine());
+            Random random = new Random();
+            var cost = random.Next(1000,5000);
+            return new Bike(brand, color, topSpeed, cost);
+        }
+
+        public static Bike RandomBike()
+        {
+            Random rng = new Random();
+            List<string> brands = new List<string>() { "Schwinn", "GIANT", "Trek", "Specialized" };
+            return new Bike(brands[ rng.Next(brands.Count) ], "RandomColor", rng.Next(80, 150), rng.Next(500, 6000));
+        }
+
+        public override void Display()
+        {
+            Console.WriteLine($"Type: Bike - Brand: {Brand} - Color: {Color} - Cost: {Cost}");
+        }
+
+        public override void ChangeCost(int cost)
         {
             Cost = cost;
         }

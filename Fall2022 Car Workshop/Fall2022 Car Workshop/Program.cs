@@ -1,4 +1,6 @@
 ﻿using Fall2022_Car_Workshop;
+using System;
+using static System.Net.Mime.MediaTypeNames;
 
 
 // Workshop - Creating a car application that acts as a garage where a user could manage basic vehicle inventory
@@ -6,8 +8,11 @@
 
 // Setup - Organize application data
 var vehicles = new List<Vehicle>();
-var money = 20000m;
+var money = 20000000000000m;
 Vehicle activeVehicle;
+// int timeLeft = 100000000;
+// System.Timers.Timer timer = new System.Timers.Timer(timeLeft);
+
 
 // Prompt our user - display a menu with particular tasks the user can engage with
 // NOTE - We always need a way to exit the application (without control c, skip)
@@ -40,6 +45,7 @@ switch (Console.ReadLine())
         break;
 }
 
+
 // then, we go into a while loop and prompt the user based on what we want our application to look like.
 var running = true;
 while (running)
@@ -49,6 +55,9 @@ while (running)
     Console.WriteLine($"You have ${money} remaining.");
     Console.WriteLine("What would you like to do?");
     Console.WriteLine("1: Buy a new vehicle\n2: Sell a vehicle\n3: Swap vehicles\n4: List all vehicles\nQ: Quit application");
+    // Console.WriteLine($"You have {timeLeft / 1000} seconds left to make a decision! Better Think Fast!");
+    // timer.Start();
+    // timer.Elapsed += Timer_Elapsed;
     var option = Console.ReadLine();
     switch (option)
     {
@@ -62,10 +71,10 @@ while (running)
             Console.WriteLine("Would you like to buy this vehicle? (Y/N)");
             // if so (and they have enough dough) then add to inventory and update cash
             var response = Console.ReadLine();
-            if(response == "Y")
+            if (response == "Y")
             {
                 // add to inventory and update cash
-                if(money >= toBuy.Cost)
+                if (money >= toBuy.Cost)
                 {
                     vehicles.Add(toBuy);
                     money -= toBuy.Cost;
@@ -83,10 +92,41 @@ while (running)
             Console.ReadKey();
             break;
         case "2":
-            // option 1
+            // sell vehicle - show user the list of their vehicles and delete or "sell" the vehicle they choose
+            Console.WriteLine("What Vehicle would you like to sell? \n"); 
+            for (int i = 0; i < vehicles.Count; i++)
+            {
+                Console.WriteLine("Vehicle #" + i + "\n" + vehicles[i].ToStringRepresentation() + "\n"); //printing out vehicles with index values
+            }
+            var deleteIndex = int.Parse(Console.ReadLine()); //new variable used to store the index value the user chooses
+            money += vehicles[deleteIndex].Cost; //selling vehicle
+            vehicles.RemoveAt(deleteIndex); //removing the vehicle using RemoveAt
+            Console.WriteLine("Vehicle was sold");
+            Console.WriteLine("Press enter to continue");
+            Console.ReadKey();
             break;
         case "3":
-            // option 1
+            // swap vehicle - show our full list and choose what car is active
+            Console.WriteLine("What car do you wanna swap to?");
+            for (int i = 0; i < vehicles.Count; i++)
+            {
+                Console.WriteLine("Vehicle #" + i + "\n" + vehicles[i].ToStringRepresentation() + "\n");
+            }
+            var swapIndex = int.Parse(Console.ReadLine());
+            activeVehicle = vehicles[swapIndex]; //getting swap index value and making it to activeVehicle
+            Console.WriteLine($"You are working on vehicle # {swapIndex}");
+
+            Console.WriteLine("Press enter to continue");
+            Console.ReadKey();
+            break;
+        case "4":
+           
+            for (int i = 0; i<vehicles.Count; i++)
+            {
+                Console.WriteLine("Vehicle #" + i + "\n"+ vehicles[i].ToStringRepresentation() + "\n");
+            }
+            Console.WriteLine("Press enter to continue");
+            Console.ReadKey();
             break;
         case "Q":
             running = false;
@@ -98,8 +138,10 @@ while (running)
             break;
     }
     Tick();
+//    timer.Elapsed -= Timer_Elapsed;
 }
 Console.WriteLine("Thanks for playing!");
+
 // we'll want to create methods that support the options we provide to our users
 
 // this method runs after the passing of time (at the end of each loop for us)
@@ -109,3 +151,12 @@ void Tick()
 {
     money -= 250;
 }
+
+//void timerClass (int timeLeft) { 
+//}
+
+// void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+// {
+//    Console.WriteLine("\nYou took too long!");
+//    Environment.Exit(0);
+// }
